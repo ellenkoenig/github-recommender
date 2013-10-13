@@ -24,8 +24,8 @@
       </div>
 
       <div class="form">
-        <a class="btn btn-default login" href="${authUrl}" target="_blank"> Xing Login </a> <br>  
-        <p>and/or load interests from XING</p>
+          
+        <p>and/or load interests from <a class="btn btn-default login" href="${authUrl}" target="_blank"> Xing</a> <br></p>
         <form:input id="content" placeholder="XING PIN (after XING login)" path="verifierCode" type="text"/>
       </div>
     

@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -10,15 +11,15 @@
 
 <body>
 	<div class="container">
-
-	  <p>${interests} </p>
-
 	
  	<h2>Recommendations</h2>
 	    <ul>
-	      <li>first suggestion</li>
-	      <li>second suggestion</li>
-	      <li>third suggestion</li>
+		  <c:forEach var="reco" items="${recommendations}">
+		  <li>
+		  	<a href="http://github.com/${reco.name}"> <c:out value="${reco.name}"/></a>
+		    	: <c:out value="${reco.description}"/>
+		  </li>
+		  </c:forEach>
 	    </ul>
 
 	    <script type="text/javascript">
@@ -62,7 +63,7 @@
 	     document.write("<img height='222' width='222' src='" + imlocation + randomimage()+ "'>");
 	    //-->
 	    </script>
-
+  
 	    <iframe class="span6 iframe" src="https://api.github.com/zen"> </iframe>
 
 	  </div>   

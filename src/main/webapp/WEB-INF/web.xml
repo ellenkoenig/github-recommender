@@ -7,8 +7,6 @@
 
  <display-name>Github Recommender</display-name>
 
-
-
   <servlet>
 	<servlet-name>spring</servlet-name>
 	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>

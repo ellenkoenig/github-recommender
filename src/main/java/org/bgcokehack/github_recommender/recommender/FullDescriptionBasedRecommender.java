@@ -16,8 +16,8 @@ public class FullDescriptionBasedRecommender implements Recommender {
 		float smallestOverlap = Float.MAX_VALUE;
 		List<RepositoryUserScore> recos = new ArrayList<RepositoryUserScore>();
 		for (Repository repository : recoCandidates) {
-			float overlap = overLap(userInterest, repository.getDescription()
-					+ repository.getReadme());
+			float overlap = overLap(userInterest, repository.getDescription().toLowerCase()
+					+ repository.getReadme().toLowerCase());
 			if (overlap > 0 && recos.size() < numRecos) {
 				recos.add(new RepositoryUserScore(repository, overlap));
 				if (overlap <= smallestOverlap) {
@@ -41,7 +41,7 @@ public class FullDescriptionBasedRecommender implements Recommender {
 	private float overLap(Set<String> userInterest, String repositoryDetails) {
 		int overlap = 0;
 		for (String interest : userInterest) {
-			if (repositoryDetails.contains(interest)) {
+			if (repositoryDetails.contains(interest.toLowerCase())) {
 				overlap += 1;
 			}
 
