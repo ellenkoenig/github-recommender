@@ -13,26 +13,30 @@
 
   <div class="container">
     
+    <img class="logo" height='102' width='102' src="http://octodex.github.com/images/original.png">  
     <h1>Find interesting GitHub repos</h1>
 
     <form:form method="post" action="processUserPreferences.html">
-      <div>Please enter your interests...</div>
       
-      <div class="input-append">
-        <form:input id="content" placeholder="Interest 1, interest 2, ..." path="interests" type="text"/>
+      <div class="form">
+        <p>Please enter your interests...</p>
+        <form:input id="content" placeholder="Interest 1, Interest 2, ..." path="interests" type="text"/>
       </div>
-      
-       <div>and/or load your interests from XING</div>
-   
-      <div class="input-append">
-        <a class="btn btn-default login" href="${authUrl}" target="_blank"> Xing Login </a>
-        <form:input id="content" placeholder="XING Login PIN (after XING login)" path="verifierCode" type="text"/>
-        </div>
-        <div>
-        <input class="btn" type="submit" value="Get my recommendations"/>
+
+      <div class="form">
+        <a class="btn btn-default login" href="${authUrl}" target="_blank"> Xing Login </a> <br>  
+        <p>and/or load interests from XING</p>
+        <form:input id="content" placeholder="XING PIN (after XING login)" path="verifierCode" type="text"/>
       </div>
+    
+      <div class="form">
+        <input class="btn btn-success" type="submit" value="Get my recommendations"/>
+      </div>
+    
     </form:form>
+  
   </div>
+
 </body>
 </html>
 

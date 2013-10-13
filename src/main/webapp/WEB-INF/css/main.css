@@ -2,22 +2,23 @@ body {
   margin: 0 200px 0 200px;
   background: #FFFFFF;
   color: #333333;
+  line-height: 2;
 } 
 
 h1 {
-	padding: 0 0 40px;
+	padding: 0 0 20px;
 }
 
-h2 {
-	padding: 30px 0 0;
-}
-
-input {
-	height: 20px;
+p {
+	font-size: 15px;
 }
 
 img {
 	padding: 30px 0;
+}
+
+input {
+	height: 20px;
 }
 
 .iframe {
@@ -26,6 +27,9 @@ img {
 	margin: 0 0 0 0;
 	display: block;
 }
+.inframe pre {
+	color: red;
+}
 
 .container {
 	margin: 50px 100px 30px 100px;
@@ -33,9 +37,16 @@ img {
 
 .btn {
 	margin: 0 0 10px;
+	display: inline-block;
 }
 
-.login {
+.logo {
 	float: right;
-	margin: 0 250px;
+	margin: 0 400px 0 50px;
+	padding: 0;
+}
+
+
+.form {
+	margin: 60px 0 30px;
 }
