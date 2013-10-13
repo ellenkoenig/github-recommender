@@ -1,7 +1,11 @@
 github-recommender
 ==================
 
-Berlin Geekettes Hackathon project to recommend interesting open source projects to GitHub users based on their interests
+Berlin Geekettes Hackathon project to recommend interesting open source projects to GitHub users based on their interests. This works, but right now only on a limited (random) selection of a few tousand repos. Please keep in mind this is a hack, so the code is neither particularly robust, clean or pretty. ;)
+
+A live demo is here: http://github-recommender.herokuapp.com/
+
+Written by Lina, Julia & Ellen (@ellen_koenig)
 
 Hints
 ---------
