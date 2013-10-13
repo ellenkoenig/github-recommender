@@ -124,34 +124,22 @@ public class StartPageController {
 	}
 
 	private Set<Repository> processProjectDataFromGitHub(String authCode) {
-		String gitHubBaseURL = "https://api.github.com/repos/";
 
-		List<String> descriptionUrls = Arrays.asList("jquery/jquery",
-				"MojoJolo/textteaser", "HubSpot/odometer",
-				"jverdi/JVFloatLabeledTextField", "krasimir/absurd",
-				"Diogenesthecynic/FullScreenMario", "enyo/dropzone",
-				"benweet/stackedit", "nicktoumpelis/HiBeacons",
-				"alvarotrigo/fullPage.js");
 		String readmeUrlSuffix = "/readme";
 
 		Set<Repository> repositories = new HashSet<Repository>();
 
-		for (String descriptionUrl : descriptionUrls) {
+		for (String repoUrl :  fetchRepoUrls()) {
 
-			Repository repo = new Repository(descriptionUrl);
-
-			HttpGet httpGetDescription = new HttpGet(gitHubBaseURL
-					+ descriptionUrl);
+			Repository repo = new Repository(repoUrl);
 			
-			HttpGet httpGetReadme = new HttpGet(gitHubBaseURL + descriptionUrl
-					+ readmeUrlSuffix);
+			HttpGet httpGetDescription = new HttpGet(repoUrl);			
+			HttpGet httpGetReadme = new HttpGet(repoUrl + readmeUrlSuffix);
 			
 			if(authCode != null && !authCode.isEmpty()) {
-			httpGetDescription.addHeader("Authorization",
-					"token " + authCode);
+			httpGetDescription.addHeader("Authorization", "token " + authCode);
 				
-				httpGetReadme.addHeader("Authorization",
-						"token " + authCode);
+				httpGetReadme.addHeader("Authorization", "token " + authCode);
 			
 			}
 			CloseableHttpResponse repositoryInformation = null;
@@ -207,22 +195,39 @@ public class StartPageController {
 		return repositories;
 	}
 
-	public static void main(String[] args) {
-		CloseableHttpClient httpclient = HttpClients.createDefault();
+	private List<String> fetchRepoUrls() {
+		
+		List<String> repos = new ArrayList<String>();
+		HttpGet httpGetRepositories = new HttpGet("https://api.github.com/repositories");
 
-		String gitHubBaseURL = "https://api.github.com/repos/";
-		HttpGet httpGetDescription = new HttpGet(gitHubBaseURL
-				+ "MojoJolo/textteaser");
-
-		httpGetDescription.addHeader("Authorization",
-				"token 4b1aa6fca827d8724da8ed7da2b6a44898c3ee54");
 		CloseableHttpResponse repositoryInformation = null;
 		try {
-			repositoryInformation = httpclient.execute(httpGetDescription);
-			HttpEntity entityDescription = repositoryInformation.getEntity();
-			System.out.println(EntityUtils.toString(entityDescription));
-		} catch (Exception ex) {
-
+			repositoryInformation = httpclient.execute(httpGetRepositories);
+			HttpEntity entityRepos = repositoryInformation
+					.getEntity();
+			if (entityRepos != null) {
+				@SuppressWarnings("unchecked")
+				List<Map<String, String>> parsedRepos = new ObjectMapper()
+						.readValue(EntityUtils.toString(entityRepos),
+								List.class);
+				for(Map<String, String> rawRepoData: parsedRepos) {
+					repos.add(rawRepoData.get("url"));
+				}
+							
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (repositoryInformation != null) {
+					repositoryInformation.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
+		return repos;
 	}
 }
