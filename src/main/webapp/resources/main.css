@@ -1,0 +1,41 @@
+body {
+  margin: 0 200px 0 200px;
+  background: #FFFFFF;
+  color: #333333;
+} 
+
+h1 {
+	padding: 0 0 40px;
+}
+
+h2 {
+	padding: 30px 0 0;
+}
+
+input {
+	height: 20px;
+}
+
+img {
+	padding: 30px 0;
+}
+
+.iframe {
+	height: 60px;
+	border: none;
+	margin: 0 0 0 0;
+	display: block;
+}
+
+.container {
+	margin: 50px 100px 30px 100px;
+}
+
+.btn {
+	margin: 0 0 10px;
+}
+
+.login {
+	float: right;
+	margin: 0 250px;
+}
