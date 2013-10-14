@@ -131,7 +131,7 @@ public class StartPageController {
 
 		for (String repoUrl :  fetchRepoUrls()) {
 
-			Repository repo = new Repository(repoUrl);
+			Repository repo = new Repository(repoUrl.replaceFirst("https://api.github.com/repos/", ""));
 			
 			HttpGet httpGetDescription = new HttpGet(repoUrl);			
 			HttpGet httpGetReadme = new HttpGet(repoUrl + readmeUrlSuffix);
@@ -152,6 +152,7 @@ public class StartPageController {
 					Map<String, String> resultProfile = new ObjectMapper()
 							.readValue(EntityUtils.toString(entityDescription),
 									HashMap.class);
+					
 					repo.setDescription(resultProfile.get("description"));
 
 				}
