@@ -1,4 +1,4 @@
-package org.bgcokehack.github_recommender.controller;
+package org.bgcokehack.github_recommender.service;
 
 import org.scribe.builder.api.DefaultApi10a;
 import org.scribe.model.*;

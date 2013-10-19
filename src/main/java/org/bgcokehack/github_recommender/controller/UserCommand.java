@@ -4,11 +4,6 @@ public class UserCommand {
 
 	private String interests;
 	private String verifierCode;
-	private String githubAuthCode;
-	
-	public UserCommand(){
-		this.githubAuthCode = System.getenv().get("GITOAUTHTOKEN");
-	}
 
 	public String getVerifierCode() {
 		return verifierCode;
@@ -25,12 +20,5 @@ public class UserCommand {
 	public void setInterests(String interests) {
 		this.interests = interests;
 	}
-
-	public String getGithubAuthCode() {
-			return (githubAuthCode == null ? "" : githubAuthCode);
-
-	}
-
-
 
 }

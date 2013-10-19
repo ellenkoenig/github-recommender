@@ -16,7 +16,7 @@
     <img class="logo" height='102' width='102' src="http://octodex.github.com/images/original.png">  
     <h1>Find interesting GitHub repos</h1>
 
-    <form:form method="post" action="processUserPreferences.html">
+    <form:form method="post" action="recommendations.html">
       
       <div class="form">
         <p>Please enter your interests...</p>
