@@ -1,4 +1,4 @@
-package org.bgcokehack.github_recommender.service;
+package org.bgcokehack.github_recommender.api_access;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import org.bgcokehack.github_recommender.controller.Repository;
+import org.bgcokehack.github_recommender.model.Repository;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;

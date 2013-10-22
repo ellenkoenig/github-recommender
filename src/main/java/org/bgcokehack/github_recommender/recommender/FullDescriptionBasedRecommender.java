@@ -5,8 +5,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import org.bgcokehack.github_recommender.controller.Repository;
-import org.bgcokehack.github_recommender.controller.RepositoryUserScore;
+import org.bgcokehack.github_recommender.model.Repository;
+import org.bgcokehack.github_recommender.model.RepositoryUserScore;
 
 public class FullDescriptionBasedRecommender implements Recommender {
 

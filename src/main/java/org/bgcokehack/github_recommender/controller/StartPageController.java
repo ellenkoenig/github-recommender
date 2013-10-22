@@ -5,11 +5,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.bgcokehack.github_recommender.api_access.GitHubApiService;
+import org.bgcokehack.github_recommender.api_access.XingApi;
+import org.bgcokehack.github_recommender.api_access.XingApiService;
+import org.bgcokehack.github_recommender.model.Repository;
 import org.bgcokehack.github_recommender.recommender.FullDescriptionBasedRecommender;
 import org.bgcokehack.github_recommender.recommender.Recommender;
-import org.bgcokehack.github_recommender.service.GitHubApiService;
-import org.bgcokehack.github_recommender.service.XingApi;
-import org.bgcokehack.github_recommender.service.XingApiService;
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.model.Token;
 import org.scribe.oauth.OAuthService;

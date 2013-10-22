@@ -3,7 +3,7 @@ package org.bgcokehack.github_recommender.recommender;
 import java.util.List;
 import java.util.Set;
 
-import org.bgcokehack.github_recommender.controller.Repository;
+import org.bgcokehack.github_recommender.model.Repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 

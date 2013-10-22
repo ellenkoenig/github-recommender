@@ -1,4 +1,4 @@
-package org.bgcokehack.github_recommender.service;
+package org.bgcokehack.github_recommender.api_access;
 
 import java.io.IOException;
 import java.util.ArrayList;

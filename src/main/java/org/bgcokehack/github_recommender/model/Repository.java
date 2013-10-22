@@ -1,4 +1,4 @@
-package org.bgcokehack.github_recommender.controller;
+package org.bgcokehack.github_recommender.model;
 
 import java.util.List;
 

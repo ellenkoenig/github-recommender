@@ -1,4 +1,5 @@
-package org.bgcokehack.github_recommender.controller;
+package org.bgcokehack.github_recommender.model;
+
 
 public class RepositoryUserScore implements Comparable<RepositoryUserScore> {
 	private Repository r;
