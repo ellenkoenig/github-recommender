@@ -4,10 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Fechting successful</title>
+<title>Fetching successful</title>
 </head>
 <body>
-<p>All data was successfully fetches from GitHub and stored in the database!</p>
+<p>All data was successfully fetched from GitHub and stored in the database!</p>
 <p> You stored ${repos.size()} repositories.</p>
 </body>
 </html>
