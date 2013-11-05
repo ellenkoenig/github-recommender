@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.ParseException;
 import org.apache.http.client.ClientProtocolException;
@@ -27,18 +28,21 @@ public class GitHubApiService {
 	
 	CloseableHttpClient httpclient = HttpClients.createDefault();
 	String gitHubAuthCode;
+	String repoListUrl;
 
 	public GitHubApiService() {
 		this.gitHubAuthCode = System.getenv().get("GITOAUTHTOKEN");
 	}
 	
-	public Set<Repository> FetchRepoData() {
+	public Set<Repository> fetchRepoDataBatch() {
 
 		String readmeUrlSuffix = "/readme";
+		this.repoListUrl = "https://api.github.com/repositories";
+		
 
 		Set<Repository> repositories = new HashSet<Repository>();
 
-		for (String repoUrl :  fetchRepoUrls()) {
+		for (String repoUrl : fetchRepoUrls()) {
 			Repository repo = new Repository(repoUrl.replaceFirst("https://api.github.com/repos/", ""));
 			HttpGet httpGetDescription = new HttpGet(repoUrl);			
 			HttpGet httpGetReadme = new HttpGet(repoUrl + readmeUrlSuffix);
@@ -75,32 +79,58 @@ public class GitHubApiService {
 		}
 		return repositories;
 	}
-
+	
+	public boolean weHaveMoreData() {
+		return !this.repoListUrl.isEmpty();
+	}
 
 	private List<String> fetchRepoUrls() {
 
 		List<String> repos = new ArrayList<String>();
-		HttpGet httpGetRepositories = new HttpGet("https://api.github.com/repositories");
+		HttpGet httpGetRepositories = new HttpGet(this.repoListUrl);
+		if(gitHubAuthCode != null && !gitHubAuthCode.isEmpty()) {
+			httpGetRepositories.addHeader("Authorization", "token " + gitHubAuthCode);
+		}
 
 		CloseableHttpResponse repositoryInformation = null;
 		try {
 			repositoryInformation = httpclient.execute(httpGetRepositories);
-			HttpEntity entityRepos = repositoryInformation
-					.getEntity();
-			if (entityRepos != null) {
-				@SuppressWarnings("unchecked")
-				List<Map<String, String>> parsedRepos = new ObjectMapper()
-				.readValue(EntityUtils.toString(entityRepos),
-						List.class);
-				for(Map<String, String> rawRepoData: parsedRepos) {
-					repos.add(rawRepoData.get("url"));
+			Header linkHeader = repositoryInformation.getFirstHeader("link");
+			if(linkHeader != null) {
+				String[] paginationUrls = linkHeader.getValue().split(",");
+				boolean newUrlFound = false;
+				for(String url: paginationUrls){
+					if(url.contains("next")) {
+						this.repoListUrl = url.split(">")[0].substring(1);
+						newUrlFound = true;
+					} 
 				}
-
+				
+				if(!newUrlFound) {
+					this.repoListUrl = "";
+				}
+	
+				HttpEntity entityRepos = repositoryInformation
+						.getEntity();
+				if (entityRepos != null) {
+					@SuppressWarnings("unchecked")
+					List<Map<String, String>> parsedRepos = new ObjectMapper()
+					.readValue(EntityUtils.toString(entityRepos),
+							List.class);
+					for(Map<String, String> rawRepoData: parsedRepos) {
+						repos.add(rawRepoData.get("url"));
+					}
+				}
+			} else {
+				this.repoListUrl = "";
+				return new ArrayList<String>();
 			}
 		} catch (ParseException e) {
 			e.printStackTrace();
+			return new ArrayList<String>();
 		} catch (IOException e) {
 			e.printStackTrace();
+			return new ArrayList<String>();
 		} finally {
 			try {
 				if (repositoryInformation != null) {
@@ -113,10 +143,10 @@ public class GitHubApiService {
 		return repos;
 	}
 
-	private Map<String, String> fetchRepositoryMetaData(HttpGet httpGetUrl) 
+	private Map<String, String> fetchRepositoryMetaData(HttpGet httpGetRequest) 
 			throws IOException, ClientProtocolException, JsonParseException, JsonMappingException {
 		CloseableHttpResponse repositoryInformation;
-		repositoryInformation = httpclient.execute(httpGetUrl);
+		repositoryInformation = httpclient.execute(httpGetRequest);
 		HttpEntity entity = repositoryInformation
 				.getEntity();
 		if (entity != null) {

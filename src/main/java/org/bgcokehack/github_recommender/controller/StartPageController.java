@@ -5,9 +5,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.bgcokehack.github_recommender.api_access.GitHubApiService;
 import org.bgcokehack.github_recommender.api_access.XingApi;
 import org.bgcokehack.github_recommender.api_access.XingApiService;
+import org.bgcokehack.github_recommender.data_storage.GitHubMetaDataDAO;
 import org.bgcokehack.github_recommender.model.Repository;
 import org.bgcokehack.github_recommender.recommender.FullDescriptionBasedRecommender;
 import org.bgcokehack.github_recommender.recommender.Recommender;
@@ -31,7 +31,7 @@ public class StartPageController {
 	XingApiService xingApiService;
 	
 	@Autowired
-	GitHubApiService gitHubApiService;
+	GitHubMetaDataDAO dao;
 	
 	@RequestMapping("/start")
 	public ModelAndView startPage(Model model) {
@@ -54,7 +54,7 @@ public class StartPageController {
 			@ModelAttribute("requestToken") Token requestToken) {
 
 		Set<String> userInterests = preProcessUserInterests(user, requestToken);
-		Set<Repository> repos = gitHubApiService.FetchRepoData();
+		Set<Repository> repos = new HashSet<>(dao.fetchAllRepositories());
 
 		Recommender recommender = new FullDescriptionBasedRecommender();
 		List<Repository> recommendations = recommender.recommend(userInterests, repos, 5);
