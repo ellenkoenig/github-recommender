@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html>
 <head>
@@ -16,8 +16,9 @@
 	    <ul>
 		  <c:forEach var="reco" items="${recommendations}">
 		  <li>
-		  	<a href="http://github.com/${reco.name}"> <c:out value="${reco.name}"/></a>
-		    	: <c:out value="${reco.description}"/>
+		    <fmt:formatNumber value="${reco.score/100}" type="percent"  /> 
+		  	<a href="http://github.com/${reco.repository.name}"> <c:out value="${reco.repository.name}"/></a>
+		    	: <c:out value="${reco.repository.description}"/>
 		  </li>
 		  </c:forEach>
 	    </ul>

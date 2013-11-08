@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.Set;
 
 import org.bgcokehack.github_recommender.model.Repository;
+import org.bgcokehack.github_recommender.model.RepositoryUserScore;
 
 public interface Recommender {
-	public List<Repository> recommend(Set<String> userInterest, Set<Repository> recoCandidates, int numRecos);
+    List<RepositoryUserScore> recommend(Set<String> userInterest, Set<Repository> recoCandidates, int numRecos);
 }
